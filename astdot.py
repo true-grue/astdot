@@ -4,8 +4,7 @@ import inspect
 STY = '''
 node [fontname="JetBrains Mono" fontsize=15 style=filled
       fillcolor="#E5FDCD" penwidth=1.5]
-edge [fontname="JetBrains Mono" fontsize=12 fontcolor="#555555"]
-'''.rstrip()
+edge [fontname="JetBrains Mono" fontsize=12 fontcolor="#555555"]'''
 
 
 def graph_to_dot(graph, node_labels, edge_labels, style):
