@@ -10,7 +10,8 @@ edge [fontname="JetBrains Mono" fontsize=12 fontcolor="#555555"]'''
 def graph_to_dot(graph, node_labels, edge_labels, style):
     dot = [f'digraph {{{style}']
     for n in graph:
-        dot.append(f'{n} [label="{node_labels[n]}" shape=box]')
+        label = node_labels[n].replace('"', '\\"')
+        dot.append(f'{n} [label="{label}" shape=box]')
     for src in graph:
         for dst in graph[src]:
             dot.append(f'{src} -> {dst} [label="{edge_labels[(src, dst)]}"]')
