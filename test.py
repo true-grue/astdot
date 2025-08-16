@@ -4,13 +4,13 @@ import astdot
 def test():
     output = r'''
 digraph {
-0 [label="Module" shape=box]
-1 [label="list" shape=box]
-2 [label="Expr" shape=box]
-3 [label="BinOp" shape=box]
-4 [label="Constant\nvalue: 2" shape=box]
-5 [label="Add" shape=box]
-6 [label="Constant\nvalue: 2" shape=box]
+0 [label="Module"]
+1 [label="list"]
+2 [label="Expr"]
+3 [label="BinOp"]
+4 [label="Constant\nvalue: 2"]
+5 [label="Add"]
+6 [label="Constant\nvalue: 2"]
 0 -> 1 [label=".body"]
 1 -> 2 [label="[0]"]
 2 -> 3 [label=".value"]

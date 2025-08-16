@@ -2,7 +2,7 @@ import ast
 import inspect
 
 STY = '''
-node [fontname="JetBrains Mono" fontsize=15 style=filled
+node [fontname="JetBrains Mono" fontsize=15 style=filled shape=box
       fillcolor="#E5FDCD" penwidth=1.5]
 edge [fontname="JetBrains Mono" fontsize=12 fontcolor="#555555"]'''
 
@@ -11,7 +11,7 @@ def graph_to_dot(graph, node_labels, edge_labels, style):
     dot = [f'digraph {{{style}']
     for n in graph:
         label = node_labels[n].replace('"', '\\"')
-        dot.append(f'{n} [label="{label}" shape=box]')
+        dot.append(f'{n} [label="{label}"]')
     for src in graph:
         for dst in graph[src]:
             dot.append(f'{src} -> {dst} [label="{edge_labels[(src, dst)]}"]')
@@ -23,7 +23,7 @@ def skip(name, value):
     return name != 'value' and value in ([], None)
 
 
-def ast_to_dot(node, skip=skip, style=STY):
+def ast_to_dot(tree, skip=skip, style=STY):
     def walk_fields(node_id, node):
         args = []
         for name, value in ast.iter_fields(node):
@@ -52,13 +52,13 @@ def ast_to_dot(node, skip=skip, style=STY):
                     walk_node(node_id, x, f'[{i}]')
 
     graph, node_labels, edge_labels = {}, {}, {}
-    walk_node(None, node, '')
+    walk_node(None, tree, '')
     return graph_to_dot(graph, node_labels, edge_labels, style)
 
 
-def source_to_dot(source, skip=skip, style=STY):
-    return ast_to_dot(ast.parse(source), skip, style)
+def source_to_dot(source, **kwargs):
+    return ast_to_dot(ast.parse(source), **kwargs)
 
 
-def object_to_dot(obj, skip=skip, style=STY):
-    return source_to_dot(inspect.getsource(obj), skip, style)
+def object_to_dot(obj, **kwargs):
+    return source_to_dot(inspect.getsource(obj), **kwargs)
